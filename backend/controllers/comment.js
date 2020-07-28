@@ -35,7 +35,7 @@ exports.deleteComment = async (req, res) => {
             id: req.body.id
         }})
         if (!(req.user.id === comment.userId)) {
-            return res.status(401).send({ message: 'You are not authorised'})
+            return res.status(401).send({ message: 'You are not authorized'})
         }
         await Comment.destroy({ where: {
             userId: req.user.id,

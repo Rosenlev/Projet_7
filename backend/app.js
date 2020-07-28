@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
 
-const bodyParser = require('body-parser');
+const cors = require('cors');
+
+//Security
+const helmet = require('helmet');
 
 const app = express();
 
-app.use(bodyParser.json());
 
 
 const { dbConnection } = require('./config/db');
@@ -20,6 +22,11 @@ dbConnection();
 
 app.use(express.json());
 const PORT = 4000;
+
+
+app.use(cors());
+
+app.use(helmet());
 
 
 // Gestion des fichiers statiques
