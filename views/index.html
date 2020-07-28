@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Groupomédia </title>    
+    <meta name="description" content="Réseau social d'entreprise Groupomania">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e439166e98.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="js/connexion.js" async></script>
+    <script src="js/index.js" async></script>
+</head>
+
+<body>
+    <header>
+        <a id='logo' href='index.html'> <img src="logos/icon-left-font-monochrome-black.svg" alt="logo Groupomania" /></a>
+        <nav>
+            <a href="me.html">Mon Compte |</a>            
+            <div id="connexion">             
+            </div> 
+        </nav>
+    </header>
+    <main id="index">
+        <form>
+            <div class="post-form">
+                <textarea id="content" rows="8" placeholder="Tapez votre message ici"></textarea>
+                <input type="file" name="image">
+                <button type="submit" class="validbtn" id="btn">Publier</button>                
+            </div>
+            <div id="error-message"></div>
+        </form>
+        <section id="post">
+            <h2>Fil d'actualité :</h2>
+        </section>
+    </main>
+
+</body>
+
+
+</html>

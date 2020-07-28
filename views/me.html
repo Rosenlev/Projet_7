@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Groupomédia Mon Compte</title>    
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="js/connexion.js" async></script>
+    <script src="js/me.js" async></script>
+
+
+</head>
+
+<body>
+    <header>
+        <a id='logo' href='index.html'> <img src="logos/icon-left-font-monochrome-black.svg" alt="logo Groupomania" /></a>
+        <nav>
+            <a href="me.html">Mon Compte |</a>            
+            <div id="connexion">           
+            </div> 
+        </nav>
+    </header>
+    <main id="my-account">
+        <h1>Votre compte</h1>
+        <form>       
+            <div class="container">
+                
+                <div class='form-input'>
+                    <label for="file"><b>Avatar :</b></label>
+                    <input type="file" name="image" id="file" required>
+                </div>
+                <div id="image"><img src="#" alt="Votre photo"></div>
+                <div class='form-input'>
+                    <label for="username"><b>Nom d'utilisateur:</b></label>
+                    <input type="text" name="username" id="username" required>
+                </div>
+
+                <div class='form-input'>
+                    <label for="email"><b>Adresse email :</b></label>
+                    <input type="email" name="email" id="email" required>
+                </div>
+
+                <div class='form-input'>
+                    <label for="psw"><b>Mot de passe :</b></label>
+                    <input type="password" name="psw" id="psw" required>
+                </div>
+
+            
+            <div class="btn">
+                <button type="submit" class="updatebtn" id="updatebtn">Modifier</button>
+                <button type="submit" class="deletebtn" id="deletebtn">Supprimer</button>
+            </div>
+
+            </div>
+        </form>
+    </main>
+
+</body>
+
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Inscription</title>
+        <meta name="description" content="Création de compte pour Groupomédia">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/signup.js" async></script>
+    </head>
+    <body>
+        <header>
+            <a id='logo' href='index.html'> <img src="logos/icon-left-font-monochrome-black.svg" alt="logo Groupomania" /></a>
+            <nav>           
+                <div id="connexion">
+                    <a href="login.html">Connexion |</a>
+                    <a href="signup.html">| Inscription</a>                
+                </div> 
+            </nav>
+        </header>
+        <main id="signup">
+            <h1>Créer un nouveau compte</h1>
+            <form enctype="multipart/form-data">       
+                <div class="container">
+                    <label for="file"><b>Votre image</b></label>
+                    <input type="file" name="image" id="file" required>
+                    <br>
+                    <div id="image"><img src="#" alt="Votre photo"></div>
+
+                <label for="username"><b>Nom d'utilisateur</b></label>
+                <input type="text" placeholder="Entrez votre pseudonyme" name="username" id="username" required>
+
+                <label for="email"><b>Email</b></label>
+                <input type="email" placeholder="Entrez votre adresse email" name="email" id="email" required>
+            
+                <label for="psw"><b>Mot de Passe</b></label>
+                <input type="password" placeholder="Entrez votre mot de passe" name="psw" id="psw" required>
+
+                <div id="error-message"></div>
+            
+                <div class="btn">
+                    <button type="submit" class="validbtn" id="btn">Inscription</button>
+                    <button type="reset" class="cancelbtn" value="Reset">Annuler</button>
+                </div>
+                </div>
+            </form>            
+        </main>
+
+    </body>
+</html>

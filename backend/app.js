@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 const bodyParser = require('body-parser');
 
@@ -6,34 +7,27 @@ const app = express();
 
 app.use(bodyParser.json());
 
-const postRoutes = require('./routes/post');
 
-app.use('/api/post', postRoutes);
+const { dbConnection } = require('./config/db');
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    next();
-  });
+const userRoute = require('./routes/user')
+const postRoute = require('./routes/post')
+const likeRoute = require('./routes/like')
+const commentRoute = require('./routes/comment')
 
-app.use((req, res, next) => {
-  console.log('Requête reçue !');
-  next();
-});
+dbConnection();
 
-app.use((req, res, next) => {
-  res.status(201);
-  next();
-});
 
-app.use((req, res, next) => {
-  res.json({ message: 'Votre requête a bien été reçue !' });
-  next();
-});
+app.use(express.json());
+const PORT = 4000;
 
-app.use((req, res, next) => {
-  console.log('Réponse envoyée avec succès !');
-});
 
-module.exports = app;
+// Gestion des fichiers statiques
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
+app.use( userRoute)
+app.use( postRoute )
+app.use(likeRoute )
+app.use(commentRoute )
+
+app.listen(PORT, () => console.log('Server is running on port ' + PORT))
