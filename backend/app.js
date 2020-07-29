@@ -8,8 +8,6 @@ const helmet = require('helmet');
 
 const app = express();
 
-
-
 const { dbConnection } = require('./config/db');
 
 const userRoute = require('./routes/user')
@@ -32,9 +30,9 @@ app.use(helmet());
 // Gestion des fichiers statiques
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use( userRoute)
+app.use( userRoute )
 app.use( postRoute )
-app.use(likeRoute )
-app.use(commentRoute )
+app.use( likeRoute )
+app.use( commentRoute )
 
 app.listen(PORT, () => console.log('Server is running on port ' + PORT))
