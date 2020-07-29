@@ -1,36 +1,33 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class Like extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-      models.Comment.belongsTo(models.User, {
-        foreignKey: {
-          allowNull:false
-        }
-      })
+const { Sequelize, Model } = require('sequelize');
+const { sequelize }  = require('../config/db');
 
-      models.Post.belongsTo(models.Post, {
-        foreignKey: {
-          allowNull:false
-        }
-      })
-    }
-  };
-  Like.init({
-    idPosts: DataTypes.INTEGER,
-    idUsersLiked: DataTypes.INTEGER,
-    like: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Like',
-  });
-  return Like;
-};
+class Like extends Model {}
+Like.init({
+      // parameters
+  id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  like: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0
+  },
+  userIdLiked: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+  },
+  postId: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+  }
+}, {
+    timestamps: false,
+    modelName: 'likes',
+    sequelize
+})
+
+Like.sync()
+
+module.exports = Like;
