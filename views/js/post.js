@@ -1,42 +1,42 @@
 window.addEventListener('load', async () =>{
-    // Recupere les paramètres de l'url
+    // Fetches URL parameters
     const postId =  window.location.search.split('?')[1];
     const urlPost = `http://localhost:4000/post/${postId}`
     const urlProfile = `http://localhost:4000/user/me`
     const urlLike = `http://localhost:4000/post/${postId}/like`
     const urlComment = `http://localhost:4000/post/${postId}/comment`
     const urlComments = `http://localhost:4000/post/${postId}/comments`
-    const token = 'Bearer ' + sessionStorage.getItem('token') // Récupère le token stocké dans local storage
+    const token = 'Bearer ' + sessionStorage.getItem('token') // Fetches localStorage token
 
     let postUserId;
     let userId;
 
 
     // GET POST
-    // Permet d'afficher le post
+    // Displays post
     const displayPost = async () => {
         try {
-            const userData = await getData(urlProfile) // Récupère les données de l'utilisateur
+            const userData = await getData(urlProfile) // Fetches user's data
             userId = userData.id;
-            const postData = await getData(urlPost) // Récupère les données du post
+            const postData = await getData(urlPost) // Fetches post's data
             const {username, content, avatar, imageUrl } = postData
             postUserId = postData.userId
-            const date = postData.updatedAt // Récupère la date du post actuel
-            const postDate = convertDate(date) // Convertis la date en format français
-            renderPost(username, avatar, imageUrl, content, postDate, postUserId, userId) //Rend visuellement le post
-            const likeData = await getData(urlLike) // Récupère les données du like
+            const date = postData.updatedAt // Fetches post's time
+            const postDate = convertDate(date) // Converts date into 24H format
+            renderPost(username, avatar, imageUrl, content, postDate, postUserId, userId) //Display settings
+            const likeData = await getData(urlLike) // Fetches like's data
             const { userIdLiked } = likeData
-            await isLiked(userIdLiked) // Permet d'aimer un post            
+            await isLiked(userIdLiked) // Like function           
         } catch (err) {
             throw err;
         }
     }
-    // Selon status de l'utilisateur , permet de rendre visuellement le post
+    // Depending on user's status, renders the post
     const renderPost = (username, avatar, imageUrl, postContent, postDate, postUserId, userId) => {
         const section = document.getElementById('post');
         const article = document.createElement('article');
-        if(imageUrl === null) { // le post ne possède pas d'image 
-            if ( postUserId === userId) { // l'utilisateur est celui qui a écrit le post
+        if(imageUrl === null) { // there's no image in the post
+            if ( postUserId === userId) { // user wrote the post
                 article.innerHTML = `
                 <div class="post">
                     <p class="username"><img src="${avatar}" id="avatar">${username}</p>
@@ -44,28 +44,28 @@ window.addEventListener('load', async () =>{
                         <textarea>${postContent}</textarea>
                         <button type="submit" class="validbtn" id="btn">Modifier</button>
                         <div>
-                            <i class="far fa-thumbs-up"></i>
+                            <i class="fas fa-heart"></i>
                         </div>  
                     </form>
                     <p class="date">${postDate}</p>
                     <i class="fas fa-times"></i>
                 </div>`              
-            } else { // l'utilisateur n'est pas celui qui a écrit le post
+            } else { // someone else wrote the post
                 article.innerHTML = `
                 <div class="post">
                     <p class="username"><img src="${avatar}" id="avatar">${username}</p>
                     <div class="content">
                         <p>${postContent}</p>
                         <div>
-                            <i class="far fa-thumbs-up"></i>
+                            <i class="fas fa-heart"></i>
                         </div>  
                     </div>
                     <p class="date">${postDate}</p>
                 </div>
                 ` 
             }
-        } else { // le post possède une image
-            if (postUserId === userId) { // l'utilisateur est celui qui a écrit le post
+        } else { // there's a picture in the post
+            if (postUserId === userId) { // user wrote the post
                 article.innerHTML = `
                 <div class="post">
                     <p class="username"><img src="${avatar}" id="avatar">${username}</p>
@@ -75,13 +75,13 @@ window.addEventListener('load', async () =>{
                         <input type="file" name="image">
                         <button type="submit" class="validbtn" id="btn">Modifier</button>  
                         <div>
-                            <i class="far fa-thumbs-up"></i>
+                            <i class="fas fa-heart"></i>
                         </div>  
                     </form>
                     <p class="date">${postDate}</p>
                     <i class="fas fa-times"></i>
                 </div>`
-            } else { // l'utilisateur n'est pas celui qui a écrit le post
+            } else { // someone else wrote the post
                 article.innerHTML = `
                 <div class="post">
                     <p class="username"><img src="${avatar}" id="avatar">${username}</p>
@@ -89,7 +89,7 @@ window.addEventListener('load', async () =>{
                         <p>${postContent}</p>
                         <img src="${imageUrl}">
                         <div>
-                            <i class="far fa-thumbs-up"></i>
+                            <i class="fas fa-heart"></i>
                         </div>  
                     </div>
                     <p class="date">${postDate}</p>
@@ -98,7 +98,7 @@ window.addEventListener('load', async () =>{
         }
         section.appendChild(article)
     }
-    // Convertir date en format français
+    //European date format
     const convertDate = (date) => {
         const engDate = date.split('T')[0].split('-')
         const hour = date.split('T')[1].split('.')[0]
@@ -110,8 +110,8 @@ window.addEventListener('load', async () =>{
         const message = frDate + ', ' + hour
         return message
     }
-    // CRUD OPERATION
-    // Récupère données
+    // CRUD
+    // Fetches data
     const getData = async (url) => {
         try {
             const response = await fetch(url, {
@@ -124,7 +124,7 @@ window.addEventListener('load', async () =>{
             throw new Error
         }
     }
-    // Envoie données au serveur
+    // Sends data to server
     const postData = async (url, data) => {
         try {
             const response = await fetch(url, {
@@ -140,7 +140,7 @@ window.addEventListener('load', async () =>{
             throw err;
         }
     }
-    // Modifie la ou les donnée(s) 
+    // Updates data 
     const updateFormData = async (url, formData) => {
         try {
             const response = await fetch(url, {
@@ -156,7 +156,7 @@ window.addEventListener('load', async () =>{
             throw new Error(err)
         }
     }
-    // Supprime donnée
+    // Delete data
     const deleteData = async (url) => {
         try {
             const response = await fetch(url, {
@@ -171,14 +171,14 @@ window.addEventListener('load', async () =>{
             throw err;
         }
     }
-    // Permet d'aimer un post
+    // Like a post
     const isLiked = async (userIdLiked) => {
         try {
-            const like = document.querySelector('.fa-thumbs-up')
+            const like = document.querySelector('.fa-heart')
             if (userIdLiked) like.classList.add('like')
             let liked;
             like.addEventListener('click', async () => {
-                if (!userIdLiked) { // L'utilisateur n'a pas encore aimé le post
+                if (!userIdLiked) { // User hasn't liked a post yet
                     if (!like.className.includes('like')) { 
                         like.classList.add('like')
                         liked = { like: 1}
@@ -201,16 +201,16 @@ window.addEventListener('load', async () =>{
 
     }
     await displayPost()
-    if (postUserId === userId) { // L'utilisateur a créé le post
+    if (postUserId === userId) { // User wrote the post
 
 
         // UPDATE POST
-        // Permet d'afficher l'image si nouveau fichier sélectionné
+        // Displays image if a new file is selected
         const fileField = document.querySelector('input[type=file]')
         const content = document.querySelector('textarea')
         const updateBtn = document.getElementById('btn')
         const deleteBtn = document.querySelector('.fa-times')
-        // Affiche image selectionnée
+        // Displays chosen picture
         if (fileField !== null) {
             function readUrl(input) {
                 if (input.files && input.files[0]) {
@@ -226,10 +226,10 @@ window.addEventListener('load', async () =>{
                 readUrl(this)
             }) 
         }
-        // Permet de modifier le post de l'utilisateur
+        // Allows post modification by user
         updateBtn.addEventListener('click', async (e) => {
             e.preventDefault();
-            let post = { // Donnée de l'utilisateur
+            let post = { // User data
                 content: content.value
             }
             const formData = new FormData()
@@ -237,13 +237,13 @@ window.addEventListener('load', async () =>{
                 formData.append('image', fileField.files[0])
             } 
             formData.append('post', JSON.stringify(post))  
-            await updateFormData(urlPost, formData) // Modifie la ou les donnée(s) de l'utilisateur et envoie au serveur
+            await updateFormData(urlPost, formData) // Updates user's data and sends to server
             window.location.reload(true)
         }) 
 
 
         // DELETE POST
-        // Permet de supprimer le post de l'utilisateur
+        // Deletes user's post
         deleteBtn.addEventListener('click', async (e) => {
             e.preventDefault();
             await deleteData(urlPost);
@@ -253,7 +253,7 @@ window.addEventListener('load', async () =>{
  
 
     // COMMENT  
-    // Rend visuellement le formulaire pour créer un commentaire
+    // Render comment form
     const renderCommentForm = () => {
         const section = document.getElementById('post');
         const form = document.createElement('form');
@@ -263,7 +263,7 @@ window.addEventListener('load', async () =>{
         <i class="far fa-paper-plane"></i>`
         section.appendChild(form);        
     }
-    // Rend visuellement les commentaires postés
+    // Render posted comments
     const renderComments = (avatar, username, commentDate, content) => {
         const section = document.getElementById('post')
         const div = document.createElement('div')
@@ -277,7 +277,7 @@ window.addEventListener('load', async () =>{
         ` 
         section.appendChild(div)
     }
-    // Supprime commentaire
+    // Delete comments
     const deleteComment = async (url, id) => {
         try {
             const response = await fetch(url, {
@@ -293,11 +293,11 @@ window.addEventListener('load', async () =>{
             throw err;
         }
     }
-    // Permet d'afficher les différents commentaires
+    // Displays comments under a post
     const displayComment = async () => {
         renderCommentForm()
         const btn = document.querySelector('.fa-paper-plane') 
-        // Permet de créer un nouveau commentaire
+        // Creates a new comment
         btn.addEventListener('click', async () => { 
             const comment = document.querySelector('#comment textarea')      
             const commentContent = {
@@ -306,11 +306,11 @@ window.addEventListener('load', async () =>{
             await postData(urlComment, commentContent) // 
             location.reload(true)
         })
-        const comments = await getData(urlComments) // Récupére les données des différents commentaires
+        const comments = await getData(urlComments) // Fetches comments' data
         for(let i = 0; i < comments.length ; i++) { 
             const { avatar, username, content } = comments[i]
-            const date = comments[i].updatedAt // Récupère la date du post actuel
-            const commentDate = convertDate(date) // Convertis la date en format français
+            const date = comments[i].updatedAt // Fetches post's date
+            const commentDate = convertDate(date) // European date format
             const commentId = {id: comments[i].id}
             renderComments(avatar, username, commentDate, content)
             const deleteBtn = document.querySelectorAll('.comment .fa-times')
@@ -320,7 +320,7 @@ window.addEventListener('load', async () =>{
                     await deleteComment(urlComment, commentId)
                     location.reload(true)                    
                 } else {
-                    console.log('You can not delete this comment!')
+                    console.log('You are not allowed to delete this comment.')
                 }
             })
         }

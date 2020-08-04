@@ -6,7 +6,7 @@ const btn = document.getElementById('btn')
 const url = 'http://localhost:4000/api/auth/login'
 
 
-// Envoie données à l'api
+// Sends data to API
 const postData = async (url, dataElt) => {
     const response = await fetch(url, {
         headers: {
@@ -24,14 +24,14 @@ btn.addEventListener("click", async (e) => {
         email: email.value,
         password: password.value
     }
-        const data = await postData(url, login); // Envoie données au serveur 
+        const data = await postData(url, login); // Sends data to server 
         if ( data.error ) {
             errorMessage.textContent = data.error;
             return console.error(data.error)
         }
         sessionStorage.setItem('status', ('connected')) ; 
         sessionStorage.setItem('token', `${data.token}`) 
-        window.location = `index.html`; // Redirige vers la page de confirmation de commande
+        window.location = `index.html`; // Redirects towards index
 })
 
 if( sessionStorage.getItem('status') && window.location.href.includes('login.html')) {

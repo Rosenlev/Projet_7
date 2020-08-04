@@ -4,9 +4,9 @@ const btn = document.getElementById('btn');
 const errorMessage = document.getElementById('error-message');
 
 const url = 'http://localhost:4000/post'
-const token = 'Bearer ' + sessionStorage.getItem('token') // Récupère le token stocké dans local storage
+const token = 'Bearer ' + sessionStorage.getItem('token') // Fetches token in localStorage
 // CREATE NEW POST
-// Crée les données du post 
+// Creates post's data
 const createData = async (url, formData) => {
     try {
         const response = await fetch(url, {
@@ -21,7 +21,7 @@ const createData = async (url, formData) => {
         throw new Error(err)
     }
 }
-// Permet de créer un nouveau post
+// Allows the creation of a new post
 btn.addEventListener('click', async (e) => {
     try {
         e.preventDefault();
@@ -42,7 +42,7 @@ btn.addEventListener('click', async (e) => {
     }
 })
 // GET POSTS
-// Permet d'afficher les différents posts
+// Displays posts
 const urlPosts = 'http://localhost:4000/posts'
 const displayPosts = async () => {
     const posts = await getPosts(urlPosts);
@@ -53,7 +53,7 @@ const displayPosts = async () => {
         renderPost(username, avatar, imageUrl, content, postDate, id)
     }
 }
-// Récupère les données des différents posts
+// Fetches posts' data
 const getPosts = async (url) => {
     try {
         const response = await fetch(url, {
@@ -80,7 +80,7 @@ const renderPost = (username, avatar, imageUrl, postContent, postDate, postId) =
                 <p>${postContent}</p>
             </div>
             <p class="date">${postDate}</p>
-            <a href="post.html?${postId}"><b>Voir post...</b></a>
+            <a href="post.html?${postId}"><b>Voir post et commentaires</b></a>
         </div>
         `        
     } else {
@@ -92,14 +92,14 @@ const renderPost = (username, avatar, imageUrl, postContent, postDate, postId) =
                 <img src="${imageUrl}">
             </div>
             <p class="date">${postDate}</p>
-            <a href="post.html?${postId}"><b>Voir post...</b></a>
+            <a href="post.html?${postId}"><b>Voir post et commentaires</b><i class="far fa-comments"></i></a>
         </div>
         `
     }
 
     section.appendChild(article)
 }
-// Convertir date en format français
+// Converts date into European format
 const convertDate = (date) => {
     const engDate = date.split('T')[0].split('-')
     const hour = date.split('T')[1].split('.')[0]

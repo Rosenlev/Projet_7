@@ -2,18 +2,21 @@
 * {
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
-    background-color: #f0f2f5;
     color: #1c1e21
 }
 html, body {
   margin: 0;
   padding: 0;
+  
+  background-color: #eff6fd;
 }
 a {
     text-decoration: none;
 }
 h1, h2{
   padding: 16px;
+  
+  text-align: center;
 }
 h2 {
   text-align: center;
@@ -27,20 +30,20 @@ main {
 #avatar {
   width: 16px;
   height: 16px;
+  margin-right: 5px;
 }
 /* HEADER */
 header {
-  background-color: #fff;
+  background-color: #4da6ff;
   padding: 20px;
-  color: #261624;
-  box-shadow: 3px 5px 5px #616161;
+  color: #fff;
 }
 
 header img{
     display: block;
     margin: 0 auto 20px auto;
     width: 260px;
-    background-color: #fff;
+    background-color: #4da6ff;
 }
 
 header nav {
@@ -50,7 +53,14 @@ header nav {
 }
 
 header a{
-  background-color: #fff;
+  background-color: #4da6ff;
+  color: #fff;
+}
+
+.fa-power-off, .fa-user-circle{
+  color: #fff;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 /* FORM */
 input[type=text], input[type=password], input[type=email], input[type=file] {
@@ -78,12 +88,15 @@ button:hover {
   opacity: 0.8;
 }
 .validbtn, .updatebtn {
-    background-color: #4CAF50;  
-    margin-right: 8px; 
+    background-color: #3399ff;  
+    margin-left: 60px; 
+    font-weight: bold;
 }
 .cancelbtn, .deletebtn {
-  background-color: #f44336;
+  background-color: #fff;
   margin-left: 8px; 
+  color: #3399ff;
+  font-weight: bold;
 }
 #error-message {
   color: #f44336;
@@ -93,6 +106,7 @@ button:hover {
 }
 .container {
   padding: 16px;
+  margin-left: auto;
 }
 #signup img {
   border-radius: 50%;
@@ -103,10 +117,17 @@ button:hover {
   border-radius: 50%;
   width: 100px;
   height: 100px;
+  margin-left: 100px;
 }
 #my-account #image {
   display: flex;
   justify-content: flex-start;
+}
+
+/*SIGN UP*/
+#signup p {
+  font-size: 12px;
+  font-style: italic;
 }
 /* INDEX */
 #index form {
@@ -171,9 +192,13 @@ box-shadow: 3px 5px 5px #616161;
   cursor: pointer;
 }
 .like {
-  color: green;
+  color: red;
 }
 /* POST */
+
+#post a {
+  background-color: #fff;
+}
 #post textarea, #comment textarea {
   resize: none;
   width: 280px;
@@ -217,7 +242,7 @@ box-shadow: 3px 5px 5px #616161;
     cursor: pointer;
   }
   .fa-paper-plane:hover {
-    color: green;
+    color: blue;
   }
 @media all and (min-width: 768px) {
     header img{

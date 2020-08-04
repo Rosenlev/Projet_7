@@ -6,18 +6,18 @@ const myPassword = document.getElementById('psw')
 const updateBtn = document.getElementById('updatebtn')
 const deleteBtn = document.getElementById('deletebtn')
 
-const token = 'Bearer ' + sessionStorage.getItem('token') // Récupère le token stocké dans local storage
-const urlMyProfile = 'http://localhost:4000/user/me' // Url de l'utilisateur connecté
+const token = 'Bearer ' + sessionStorage.getItem('token') // Fetches token in localStorage
+const urlMyProfile = 'http://localhost:4000/user/me' // URL of connected user
 // GET
-// Récupère et affiche les données (username et email)
+// Fetches and displays username and mail
 const getProfile = async () => {
-   const data = await getData(urlMyProfile); // Récupère les données de l'utilisateur
+   const data = await getData(urlMyProfile); // Fetches user's data
    const { username, email } = data // 
    myImage.setAttribute('src', `${data.imageUrl}`)
-   myUsername.value = username // Défini la valeur de l'input username
-   myEmail.value = email // Défini la valeur de email
+   myUsername.value = username // Defines username input's value
+   myEmail.value = email // Defines email value
 }
-// Récupère les données de l'utilisateur
+// Fetches user's data
 const getData = async (url) => {
     const response = await fetch(url, {
     method: 'GET',
@@ -31,7 +31,7 @@ const getData = async (url) => {
 }
 getProfile()
 // UPDATE
-// Permet d'afficher l'image si nouveau fichier sélectionné
+// Displays picture if the file is selected
 function readUrl(input) {
     if (input.files && input.files[0]) {
         const reader = new FileReader()
@@ -45,7 +45,7 @@ function readUrl(input) {
 fileField.addEventListener('change', function() {
     readUrl(this)
 })
-// Modifie la ou les donnée(s) de l'utilisateur et envoie au serveur
+// Updates and sends user's data to server
 const updateData = async (url, formData) => {
     try {
         const response = await fetch(url, {
@@ -61,7 +61,7 @@ const updateData = async (url, formData) => {
         throw new Error(err)
     }
 }
-// Gestionnaire d'évènement créé sur clic du bouton 'Modifier'
+// Event listener for the Update button
 updateBtn.addEventListener('click', async (e) => {
     e.preventDefault();
     let user = { // Donnée de l'utilisateur

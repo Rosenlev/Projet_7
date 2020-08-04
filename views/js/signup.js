@@ -11,10 +11,10 @@ let user = {}
 const regexEmail = /.+@.+\..+/;
 
 const isValidInput = (value) => value.length >= 2 ? true : false;
-const isValidEmail = (value) => value.match(regexEmail) ? true : false; // Vérifie que la valeur donnée soit bien dans le format email
-const isValidPassword = (value) => value.length > 7 // Vérifie que le valeur contient plus de 7 caractère
+const isValidEmail = (value) => value.match(regexEmail) ? true : false; // Checks the value is in the email format
+const isValidPassword = (value) => value.length > 7 // Checks that there's more than 7 characters
 
-// Permet de vérifier les saisies utilisateurs
+// Checks user input
 const formValidate = () => {
     if (isValidInput(username.value)) { 
         errorMessage.textContent = ""; 
@@ -43,7 +43,7 @@ const formValidate = () => {
         return false;
     }
 }
-// Envoie données à l'api
+// Sends data to API
 const postData = async (url, formData) => {
     try {
         const response = await fetch(url, {
@@ -55,7 +55,7 @@ const postData = async (url, formData) => {
         throw new Error(err)
     }
 }
-// Permet d'afficher l'image
+// Displays picture
 function readUrl(input) {
     if (input.files && input.files[0]) {
         const reader = new FileReader()
@@ -69,7 +69,7 @@ function readUrl(input) {
 fileField.addEventListener('change', function() {
     readUrl(this)
 })
-// Permet de créer un nouvel utilisateur
+// Allows the creation of a new user
 btn.addEventListener("click", async (e) => {
     try {
         e.preventDefault()
@@ -78,12 +78,12 @@ btn.addEventListener("click", async (e) => {
         formData.append('image', fileField.files[0])
         formData.append('user', JSON.stringify(user))         
         if (validForm !== false ) {
-            const data = await postData(url, formData); // Envoie données au serveur  
+            const data = await postData(url, formData); // Sends data to API
             if ( data.error ) {
                 errorMessage.textContent = data.error
                 return console.error(data.error)
             }
-            window.location = `login.html`; // Redirige vers la page login        
+            window.location = `login.html`; // Redirects towards login page     
         }
       
     } catch (err) {
