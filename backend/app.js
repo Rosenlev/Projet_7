@@ -6,6 +6,14 @@ const cors = require('cors');
 //Security
 const helmet = require('helmet');
 
+const xss = require('xss-clean');
+
+
+const rateLimit = require('express-rate-limit');
+
+
+const hpp = require('hpp');
+
 const app = express();
 
 const { dbConnection } = require('./config/db');
@@ -25,6 +33,17 @@ const PORT = 4000;
 app.use(cors());
 
 app.use(helmet());
+
+app.use(xss());
+
+app.use(hpp());
+
+
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 mins
+    max: 100
+});
+app.use(limiter);
 
 
 // Gestion des fichiers statiques
